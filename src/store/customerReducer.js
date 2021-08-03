@@ -1,14 +1,17 @@
 const defaultState = {
-    customer: [],
+    customer: [
+      'name',
+        
+    ],
 };
 
 //action = {type: '', payload: ''}
 export const customerReducer = (state = defaultState, action) => {
     switch (action.type) {
         case 'ADD_CUSTOMER':
-            return { ...state, cash: state.cash + action.payload };
+            return { ...state, customer: [...state.customer + action.payload] };
         case 'GET_CUSTOMER':
-            return { ...state, cash: state.cash - action.payload };
+            return { ...state, customer: [...state.customer + action.payload] };
 
         default:
             return state;
