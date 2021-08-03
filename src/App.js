@@ -1,5 +1,6 @@
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { addCustomerAction, removeCustomerAction } from './store/customerReducer';
 
 function App() {
     const dispatch = useDispatch();
@@ -13,15 +14,15 @@ function App() {
     };
 
     const getCustomer = (name) => {
-        const customer = {
+        const customer1 = {
             name,
             id: Date.now(),
         };
-        dispatch({ type: 'GET_CUSTOMER', payload: customer });
+        dispatch(addCustomerAction(customer1));
     };
 
-    const removeCustomer = (customer1) => {
-        dispatch({ type: 'GET_CUSTOMER', payload: customer1 });
+    const removeCustomer = (customer2) => {
+        dispatch(removeCustomerAction(customer2.id));
     };
 
     return (
@@ -32,11 +33,13 @@ function App() {
             </button>
             <div>{cash}</div>
             <button onClick={() => getCustomer(prompt())}>ADD CUSTOMER</button>
-            <button onClick={() => removeCustomer(prompt())}>
-                REMOVE CUSTOMER
-            </button>
             {customer.length > 0 ? (
-                <div>customer</div>
+                <div>
+                    {customer.map((el) => (
+                        <div onClick={() => removeCustomer(el)}   key={el.id}>{el.name}</div>
+                        
+                    ))}
+                </div>
             ) : (
                 <div>Out of customers :-)</div>
             )}
